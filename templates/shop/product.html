@@ -1,0 +1,49 @@
+{% extends "common/base.html" %}
+
+
+{% block main %}
+
+    <div>{{ product.name }}</div>
+    <div>{{ product.price }}円</div>
+    <div>在庫:{{ product.stock }}個</div>
+
+    <form action="{% url 'shop:product' product.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="1">
+        <input class="btn btn-outline-success" type="submit" value="カートに入れる">
+    </form>
+
+
+    <h2>バリエーション</h2>
+
+    {% for group in product.groups %}
+    <div class="border">
+            
+        {% if product.id != group.id %}
+        <a href="{% url 'shop:product' group.id  %}">
+        {% endif %}
+
+            <div>{{ group.name }}</div>
+            <div>
+                <img src="{{ group.img.url }}" alt="">
+            </div>
+
+        {% if product.id != group.id %}
+        </a>
+        {% endif %}
+    </div>
+
+    {% endfor %}
+
+
+    <input id="color" type="color">
+
+
+    <script>
+    
+        $("#color").on("input",function(){ console.log($(this).val()); });
+    
+    </script>
+
+{% endblock %}
+

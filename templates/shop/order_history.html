@@ -1,0 +1,22 @@
+{% extends "common/base.html" %}
+
+
+{% block main %}
+
+{% for order in orders %}
+
+<div class="border">
+    <div>{{ order.dt }}</div>
+
+    {% for detail in order.details %}
+    <div>{{ detail.product_name }}</div>
+    <div>{{ detail.product_price }}</div>
+    <div>{{ detail.amount }}個</div>
+    {% endfor %}
+</div>
+
+{% endfor %}
+
+{% endblock %}
+
+
